@@ -19,7 +19,12 @@ tables = list_tables()
 prompt = ChatPromptTemplate(  # type: ignore
     messages=[
         SystemMessage(
-            content=f"You are an AI that has access to the SQLite database.\n{tables}"
+            content=(
+                "You are an AI that has access to the SQLite database.\n"
+                f"The database has tables: {tables}\n"
+                "Do not make any assumptions about what tables exist "
+                "or what columns exist. Instead, use the 'describe_tables' function."
+            )
         ),
         HumanMessagePromptTemplate.from_template("{input}"),
         MessagesPlaceholder(
